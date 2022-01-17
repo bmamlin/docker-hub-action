@@ -1,0 +1,24 @@
+name: deploy-to-docker-hub
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: |
+          docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_TOKEN
+      - name: build container
+        run: docker build -t deploy-to-docker-hub .
+      - name: docker hub push
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub
