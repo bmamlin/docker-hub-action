@@ -21,6 +21,6 @@ jobs:
         run: |
           docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_TOKEN
       - name: build container
-        run: docker build -t deploy-to-docker-hub .
+        run: docker build . --tag ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub
       - name: docker hub push
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub
