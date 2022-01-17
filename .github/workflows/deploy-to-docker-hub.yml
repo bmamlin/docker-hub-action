@@ -20,7 +20,5 @@ jobs:
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: |
           docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_TOKEN
-      - name: build container
-        run: docker build . --tag ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub
-      - name: docker hub push
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub
+      - name: build and push container
+        run: docker buildx build --platform linux/amd64,linux/amd64/v8 -t ${{secrets.DOCKER_HUB_USERNAME}}/deploy-to-docker-hub --push .
