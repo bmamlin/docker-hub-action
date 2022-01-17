@@ -1,3 +1,3 @@
 FROM busybox
 
-CMD ["/bin/sh", "-c", "echo \"docker image from github v2\""]
+CMD ["/bin/sh", "-c", "echo \"docker image from github v3\""]
